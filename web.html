@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thred | 붉은 실처럼 이어주는 만남</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fffafc;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 300px; /* 고정된 슬라이더 높이 */
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      background: #fceef0; /* 여백 배경색 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* ✅ 전체 이미지 보이게 함 */
+      border-radius: 10px;
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 5px;
+      background-color: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #e63946;
+    }
+
+    h1 {
+      color: #e63946;
+      margin-top: 0;
+    }
+
+    a {
+      color: #1d3557;
+      text-decoration: none;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    @media (max-width: 600px) {
+      .slider {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="slider">
+      <div class="slides" id="slides">
+        <div class="slide"><img src="images/banner1.png" alt="Thred 소개 이미지 1" /></div>
+        <div class="slide"><img src="images/banner2.png" alt="Thred 소개 이미지 2" /></div>
+        <div class="slide"><img src="images/banner3.png" alt="Thred 소개 이미지 3" /></div>
+      </div>
+    </div>
+    <div class="dots" id="dots"></div>
+
+    <h1>Thred</h1>
+    <p><strong>Thred</strong>는 '붉은 실'이라는 이름처럼, 사람과 사람을 신중하게 연결하는 데이팅 앱입니다.</p>
+    <p>단순한 스와이프가 아닌, 자기소개, 질문, 그리고 신중한 답변의 과정을 통해 교양과 진심이 드러나는 만남을 추구합니다.</p>
+    <p>우리는 사용자 간의 <strong>신뢰</strong>를 최우선으로 여기며, 강제적이고 단계적인 접근법으로 불건전한 사용자를 차단합니다.</p>
+    <p>사람들과의 연결이 끊기기 쉬운 현대 사회에서, Thred는 <strong>진정한 인연</strong>을 찾는 여정을 함께합니다.</p>
+
+    <hr>
+    <p><strong>회사명:</strong> 구칠빵빵 Co.</p>
+    <p><strong>이메일:</strong> <a href="mailto:thred0920@gmail.com">thred0920@gmail.com</a></p>
+  </div>
+
+  <script>
+    const slides = document.getElementById('slides');
+    const dotsContainer = document.getElementById('dots');
+    const totalSlides = slides.children.length;
+    let index = 0;
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        goToSlide(i);
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    function goToSlide(i) {
+      index = i;
+      slides.style.transform = `translateX(-${i * 100}%)`;
+      updateDots();
+    }
+
+    function updateDots() {
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+    }
+
+    setInterval(() => {
+      index = (index + 1) % totalSlides;
+      goToSlide(index);
+    }, 5000);
+  </script>
+</body>
+</html>
